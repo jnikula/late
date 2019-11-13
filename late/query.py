@@ -3,6 +3,8 @@
 
 import lark
 
+from late.match import vevent_match
+
 query_grammar = '''
 ?start: or_expr
 | empty_query
@@ -70,10 +72,9 @@ class Query(lark.InlineTransformer):
             return set(self.vevents.keys())
         for uid, vevent_list in self.vevents.items():
             for vevent in vevent_list:
-                for attr in ['summary', 'description']:
-                    if x in str(vevent.get(attr, '')):
-                        results.add(uid)
-                        break
+                if vevent_match(vevent, None, x):
+                    results.add(uid)
+                    break
 
         return results
 
@@ -82,10 +83,9 @@ class Query(lark.InlineTransformer):
 
         for uid, vevent_list in self.vevents.items():
             for vevent in vevent_list:
-                if x != '' and x in str(vevent.get(prefix, '')):
+                if vevent_match(vevent, prefix, x):
                     results.add(uid)
-                elif x == '' and not vevent.has_key(prefix):
-                    results.add(uid)
+                    break
 
         return results
 
