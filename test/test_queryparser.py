@@ -138,5 +138,8 @@ class QueryParserTestCase(unittest.TestCase):
         self.assertEqual(self.parse('foo:bar'), '(foo:bar)')
         self.assertEqual(self.parse('foo:"foo bar"'), '(foo:foo bar)')
 
+    def test_unicode(self):
+        self.assertEqual(self.parse('"pyöreä"'), '(pyöreä)')
+
 if __name__ == '__main__':
     unittest.main()
