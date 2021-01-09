@@ -41,7 +41,7 @@ def sort_key_date(vevents, uid):
 #
 
 def print_uid(vevents, uid):
-    print('uid:%s' % (uid))
+    print('uid:{}'.format(uid))
 
 def print_oneline(vevents, uid):
     vevent = vevents[uid][0]
@@ -71,7 +71,7 @@ def print_oneline(vevents, uid):
     else:
         dtend = '<unknown>'
 
-    print('%s %s %s' % (dtstart, dtend, summary))
+    print('{} {} {}'.format(dtstart, dtend, summary))
 
 def print_pretty(vevents, uid):
     for vevent in vevents[uid]:
