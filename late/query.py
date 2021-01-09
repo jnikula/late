@@ -108,24 +108,21 @@ class QueryDebug(Query):
     def op_prefix_query(self, prefix, x):
         return '({prefix}:{x})'.format(prefix=prefix, x=x)
 
-# return a list of uid based on query
-def search(vevents, query):
+def _parse_tree(query):
     query = ' '.join(query)
     parser = QueryParser()
-    tree = parser.parse(query)
 
-    # if log.isEnabledFor(logging.DEBUG):
-    #     log.debug('parse tree:\n' + tree.pretty())
-    #     log.debug(QueryDebug().transform(tree))
+    return parser.parse(query)
+
+# return a list of uid based on query
+def search(vevents, query):
+    tree = _parse_tree(query)
 
     results = Query(vevents).transform(tree)
 
     return list(results)
 
-# Meh, dedupe this with the above
 def debug(query):
-    query = ' '.join(query)
-    parser = QueryParser()
-    tree = parser.parse(query)
+    tree = _parse_tree(query)
 
     return QueryDebug().transform(tree)
