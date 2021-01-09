@@ -21,6 +21,7 @@ def _exact_prefix_match(vevent, prefix, value):
 
 prefix_queries = {
     'uid': _exact_prefix_match,
+    'status': _exact_prefix_match,
 }
 
 def vevent_match(vevent, prefix, value):
