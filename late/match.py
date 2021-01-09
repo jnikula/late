@@ -16,11 +16,16 @@ def _prefix_match(vevent, prefix, value):
 
     return value in str(vevent.get(prefix, ''))
 
+def _exact_prefix_match(vevent, prefix, value):
+    return vevent.has_key(prefix) and value == str(vevent.get(prefix))
+
 prefix_queries = {
+    'uid': _exact_prefix_match,
 }
 
 def vevent_match(vevent, prefix, value):
     if prefix:
+        prefix = prefix.lower()
         queryfn = prefix_queries.get(prefix, _prefix_match)
         return queryfn(vevent, prefix, value)
     else:
