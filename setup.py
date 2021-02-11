@@ -44,5 +44,10 @@ setuptools.setup(
         'Topic :: Office/Business :: Scheduling',
         'Topic :: Utilities',
     ],
+    entry_points={
+        'console_scripts': [
+            'late=late.__main__:main'
+        ],
+    },
     keywords = 'calendar icalendar ical vcal command-line search tool',
 )
